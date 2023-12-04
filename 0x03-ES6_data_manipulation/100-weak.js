@@ -1,13 +1,14 @@
-On branch master
-Your branch is up to date with 'origin/master'.
+export const weakMap = new WeakMap();
 
-Changes not staged for commit:
-  (use "git add <file>..." to update what will be committed)
-  (use "git restore <file>..." to discard changes in working directory)
-	modified:   ../0x01-ES6_promise/3-all.js
-	modified:   ../0x02-ES6_classes/5-building.js
-	modified:   ../0x02-ES6_classes/6-sky_high.js
-	modified:   100-weak.js
-	modified:   6-set.js
+export function queryAPI(endpoint) {
+  if (!weakMap.has(endpoint)) {
+    weakMap.set(endpoint, 1);
+  } else {
+    const count = weakMap.get(endpoint);
+    if (count >= 4) {
+      throw new Error('Endpoint load is high');
+    }
+    weakMap.set(endpoint, count + 1);
+  }
+}
 
-no changes added to commit (use "git add" and/or "git commit -a")
